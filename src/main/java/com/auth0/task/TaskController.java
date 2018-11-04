@@ -1,4 +1,4 @@
-package com.auth0.samples.authapi.springbootauthupdated.task;
+package com.auth0.task;
 
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/tasks")
+@RequestMapping("/")
 public class TaskController {
 
     private TaskRepository taskRepository;
@@ -27,12 +27,17 @@ public class TaskController {
         taskRepository.save(task);
     }
 
-    @GetMapping
+    @GetMapping("tasks")
     public List<Task> getTasks() {
         return taskRepository.findAll();
     }
 
-    @PutMapping("/{id}")
+    @GetMapping("secured")
+    public List<Task> getSecuredTasks() {
+        return taskRepository.findAll();
+    }
+
+    @PutMapping("tasks/{id}")
     public void editTask(@PathVariable long id, @RequestBody Task task) {
         Task existingTask = taskRepository.findById(id).get();
         Assert.notNull(existingTask, "Task not found");
@@ -40,7 +45,7 @@ public class TaskController {
         taskRepository.save(existingTask);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("tasks/{id}")
     public void deleteTask(@PathVariable long id) {
         Task taskToDel = taskRepository.findById(id).get();
         taskRepository.delete(taskToDel);

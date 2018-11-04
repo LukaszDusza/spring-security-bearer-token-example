@@ -1,4 +1,4 @@
-package com.auth0.samples.authapi.springbootauthupdated.task;
+package com.auth0.task;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
